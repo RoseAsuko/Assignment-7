@@ -1,0 +1,28 @@
+*
+{
+    text-align: center;
+    background-color: #282c34;
+    color: white;
+}
+
+input
+{
+    width: 300px;
+    padding: 5px;
+    background-color: white;
+    color:black;
+    font-size: 25px;
+    font-family: sans-serif;
+   
+}
+
+input:focus
+{
+    border: 2px solid #555;
+}
+
+#submit
+{
+    width: 60px;
+    height: 35px;
+}

@@ -1,25 +1,64 @@
 import logo from './logo.svg';
-import './App.css';
+//import './App.css';
+import { GiphyFetch } from '@giphy/js-fetch-api'
+import { Component } from 'react';
+import Searchfield from './Searchfield';
+import Gifcard from './gifcard';
 
-function App() {
+class App extends Component {
+  constructor ()  {
+    super()
+    this.state ={
+      
+      jif: []
+
+    }
+
+    this.add = this.add.bind(this);
+
+  }
+componentDidMount()
+{
+ 
+    fetch("https://api.giphy.com/v1/gifs/trending?api_key=vxkSbg5S9kDqRaM2RqXtACQUlggmLUQ6")
+    .then(res => res.json())
+    .then(result => {this.add(result)})
+}
+
+
+  add(v)//we dont use val XD
+  {
+    this.setState({jif: v.data})
+  }
+
+  
+
+
+
+ 
+ render () {
+  let gifList;
+
+  if(this.state.jif.length >= 1)
+  {
+    gifList =[];
+    for(let i = 0; i < this.state.jif.length; i++)
+    {
+      gifList.push(<Gifcard url = {this.state.jif[i].images.original.url}/>)
+    }
+  }
+  else
+  {
+    gifList = <div>No Results</div>;
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Searchfield add = {this.add} />
+      {gifList}
     </div>
   );
+}
 }
 
 export default App;
